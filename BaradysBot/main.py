@@ -74,7 +74,7 @@ async def photo_command(message: types.Message):
 
 @dp.message_handler(Text('Главное меню'))
 async def main_menu_command(message: types.Message):
-    await bot.send_message(chat_id=message.from_user.id, text='Вы в главном меню', reply_markup=keyboard)
+    await bot.send_message(chat_id=message.from_user.id, text='Вы в главном меню!', reply_markup=keyboard)
     await message.delete()
 
 
@@ -84,9 +84,8 @@ async def photo_callback(callback: types.CallbackQuery):
         await callback.answer(text='Вам понравилась эта фотография')
     elif callback.data == 'dislike':
         await callback.answer(text='Вам не понравилась эта фотография')
-    # elif callback.data == 'next':
-    #     photo = InputFile(random.choice(PHOTOS))
-    #     await bot.send_photo(chat_id=callback.from_user.id, photo=photo, reply_markup=photo_keyboard)
+    elif callback.data == 'back':
+        await callback.message.answer(text='Вы в главном меню!', reply_markup=keyboard)
     else:
         global photo
         photo = random.choice(list(filter(lambda x: x != photo, PHOTOS)))
